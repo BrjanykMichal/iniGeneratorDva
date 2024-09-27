@@ -1,0 +1,44 @@
+body {
+  font-size: large;
+}
+label {
+  user-select: none;
+  padding: 2px;
+}
+input {
+  font-size: medium;
+  padding: 2px;
+}
+
+div {
+  border: 1px;
+  border-style: solid;
+  border-color: black;
+  width: fit-content;
+  padding: 5px;
+  margin: 5px;
+}
+#nahledKontejner {
+  font-size: medium;
+  height: 80px;
+  overflow: auto;
+  box-sizing: border-box;
+}
+.znackaNody,
+.inputNody {
+  font-size: medium;
+  width: 2em;
+}
+.znackaNody {
+  font-weight: bold;
+  border: 1px solid black;
+  background: whitesmoke;
+}
+#nodyKontejner {
+  overflow: auto;
+  max-height: 150px;
+  max-width: auto;
+}
+textarea {
+  font-size: 1em;
+}
