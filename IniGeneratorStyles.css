@@ -4,7 +4,13 @@
   padding: 0.1rem;
   box-sizing: border-box;
 }
+html {
+  height: 100%;
+}
 body {
+  margin: 1rem;
+  width: 95%;
+  height: 95%;
   background-color: #fefffe;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgb(173, 230, 173);
