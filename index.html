@@ -7,17 +7,18 @@
       <link rel="stylesheet" href="IniGeneratorStyles.css" />
   </head>
   <body>
-    <h1>Generator ini 2</h1>
+    <h2>Generator ini 2</h2>
     <form id="dataForm">
       <label for="cisloZm">Čislo ZM:</label>
       <input type="number" id="cisloZm" name="cisloZm" required/>
       <label for="popisZm">Popis:</label>
       <input type="text" id="popisZm" name="popisZm" />
       <br/>
-      <br/>
+      
       <div>
-        <label for="novySwCheckbox">Novy SW</label>
+        <label for="novySwCheckbox">Novy SW
         <input type="checkbox" id="novySwCheckbox" />
+      </label>
       </div>
       <div>
         <table>
@@ -78,9 +79,9 @@
               <select name="skupinaMode" id="skupinaJednaMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
-                <option value="evr">EVR</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
+                <option value="evr">EVR</option>s
                 <option value="nody">Nody</option>
               </select>
             </td>
@@ -88,8 +89,8 @@
               <select name="skupinaMode" id="skupinaDvaMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -98,8 +99,8 @@
               <select name="skupinaMode" id="skupinaTriMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -108,8 +109,8 @@
               <select name="skupinaMode" id="skupinaCtyryMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -118,8 +119,8 @@
               <select name="skupinaMode" id="skupinaPetMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -128,8 +129,8 @@
               <select name="skupinaMode" id="skupinaSestMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -138,8 +139,8 @@
               <select name="skupinaMode" id="skupinaSedmMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -148,8 +149,8 @@
               <select name="skupinaMode" id="skupinaOsmMode" /disabled>
                 <option value="astro">Astro</option>
                 <option value="prechod">Přechod</option>
-                <option value="spozdeni">Spožděni 1 min</option>
-                <option value="trvala">Trvale sepnuto</option>
+                <option value="spozdeni">Spožděni</option>
+                <option value="trvala">Trvala</option>
                 <option value="evr">EVR</option>
                 <option value="nody">Nody</option>
               </select>
@@ -159,105 +160,105 @@
           <tr>
             <td>
               <select name="skupinaRegulace" id="skupinaJednaRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaDvaRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaTriRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaCtyryRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaPetRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaSestRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaSedmRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
             <td>
               <select name="skupinaRegulace" id="skupinaOsmRegulace" /disabled>
-                <option value="k">K(22-5=>70%)</option>
-                <option value="aJedna">A1(0-4=>80%)</option>
-                <option value="aDva">A2(0-4=>70%)</option>
-                <option value="bJedna">B1(23-5=>80%)</option>
-                <option value="bDva">B2(23-5=>70%)</option>
-                <option value="cJedna">C1(22-6=>80%)</option>
-                <option value="cDva">C2(22-6=>70%)</option>
-                <option value="cTri">C3(22-6=>60%)</option>
+                <option value="k">K</option>
+                <option value="aJedna">A1</option>
+                <option value="aDva">A2</option>
+                <option value="bJedna">B1</option>
+                <option value="bDva">B2</option>
+                <option value="cJedna">C1</option>
+                <option value="cDva">C2</option>
+                <option value="cTri">C3</option>
               </select>
             </td>
           </tr>
         </table>
       </div>
       <div>
-        <b id="rmsgm"> RMSGM=0 </b>
+        <p><b id="rmsgm"> RMSGM=0 </b></p>
       </div>
       <div>
         <label for="prvniPasmo">
@@ -278,7 +279,7 @@
           Počatek:
           <input type="number" id="minNodu" min="1" max="239">
         </label>
-        <label for="minNodu">
+        <label for="maxNodu">
           Konec:
           <input type="number" id="maxNodu" min="1" max="239">
         </label>
@@ -286,7 +287,7 @@
           Skupina:
         <input type="number" id="skupinaNodu" min="0" max="8" value="0">
         </label>
-        <button type="button" onclick="priraditNody()">Přiřadit nody</button>
+        <input type="button" id="priraditNody" value="Přiřadit nody">
         <div id="nodyKontejner">
           <table id="nodyTabulka">
           </table>
@@ -294,9 +295,8 @@
       <input type="submit" id="nahled" value="Nahled">
       <input type="button" id="stahnout" value="Stahnout" disabled>
     </form>
-
-    <h2>Заполненные данные:</h2>
-    <textarea id="outputArea" rows="15" cols="100" readonly></textarea>
+    <p>Vysledek ini generatoru:</p>
+    <textarea id="outputArea" rows="10" cols="120" readonly></textarea>
   </body>
   
   <script src="IniGeneratorScripts.js"></script>

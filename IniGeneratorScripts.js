@@ -1,13 +1,14 @@
+src = "/IniGeneratorStyles.css";
 // Bloky kodu ktere se budou vkladat do vysledku ini souboru.
 // Společne šasti kodu:
 const casoserver = `SNTP=set_zone=3600#set_interval=10000#datagram://192.168.220.200:123;timeout=2000`;
 const dataConectionDaemon = `SC1=bearer_type=gprs;access_point=gprsa.techhmph;username=anonymous;password=xxx;timeout=300
 DCOND=192.168.220.200:3582;test;echoid`;
 // Časti jen pro stary SW:
-const starySw = `#otoceni vstupu: otacime jistice
+const starySw = `#otoceni vstupu: otacime jistice:
 BINNEG=49216`;
 // Časti jen pro novy SW:
-const novySw = `#nastavení input a output
+const novySw = `#nastavení input a output:
 ioini1=BIN:id=cbrks;hw=bin1;neg;BIN:id=cbrk_arvo;hw=bin2;neg;BIN:id=fms1;hw=bin3;msg1="ZM AUTO";BIN:id=fms2;hw=bin4;
 msg1="ZM RUCNE";BIN:id=ms;hw=bin5;msg1="HLAVNI VYPINACE ZAPNUTY";msg0="HLAVNI VYPINACE VYPNUTY";BIN:id=predk;hw=bin6;
 msg1="PRE DVERE ZAVRENY";msg0="PRE DVERE OTEVRENY";BIN:id=dk;hw=bin7;neg;BIN:id=sp;hw=bin8;
@@ -46,6 +47,7 @@ const Regulace = {
 let skupiny = document.getElementsByName("skupina");
 let dataForm = document.getElementById("dataForm");
 let tlacitkoStahnout = document.getElementById("stahnout");
+let tlacitkoPriraditNody = document.getElementById("priraditNody");
 //Blokovani tlačitka VYTVOŘIT když nejsou zvolene všechny elementy formulaře s atributem required.
 //Po zmačknuti na VYTVOŘIT se odblokuje tlačitko STAHNOUT.
 dataForm.addEventListener("submit", function (event) {
@@ -58,6 +60,7 @@ tlacitkoStahnout.addEventListener("click", function () {
   downloadIniFile();
   tlacitkoStahnout.disabled = 1;
 });
+tlacitkoPriraditNody.addEventListener("click", priraditNody);
 // Kod tlačitka Vytvořit.Da dohromdy všechny zadany inputy a vysledek vypiše v textarea na strance.
 function assignValues() {
   // parseInt převede text s čislem ZM na number a taky odstrani nulu na začatku když tam je.
@@ -96,7 +99,7 @@ function assignValues() {
       let modeDaneSkupiny = document.getElementById(skupina.id + "Mode");
       let vybranyCas = `${modeDaneSkupiny.value + "Casy"}`;
       skupinyAModeVysledek += `
-#časy spinani a automatika ${skupina.value}
+#časy spinani a automatika ${skupina.value}:
 G${cisloskupiny}SB= ${Casy[vybranyCas][0]}
 G${cisloskupiny}SE=${Casy[vybranyCas][1]}
 G${cisloskupiny}AE=1
@@ -106,13 +109,13 @@ G${cisloskupiny}AE=1
       if (modeDaneSkupiny.value == "evr") {
         skupinyAModeVysledek += `G${cisloskupiny}RE=1`;
         funkceProRele += `
-#funkce pro Relé ${cisloskupiny + 1}
+#funkce pro Relé ${cisloskupiny + 1}:
 #NODY`;
         // Tady když skupina ovlada nody a nejsou to EVR,tak přidame Skupina x je slave Skupiny 0.
       } else if (modeDaneSkupiny.value == "nody") {
         skupinyAModeVysledek += `G${cisloskupiny}RE=1\nG${cisloskupiny}SL=0\n`;
         funkceProRele += `
-#funkce pro Relé ${cisloskupiny + 1}
+#funkce pro Relé ${cisloskupiny + 1}:
 #NODY`;
       }
       // Tady se nastavi režim Mode pro relatka kde nejsou nody na 2 -> Spinani.
@@ -125,8 +128,7 @@ R${cisloskupiny}M=2`;
     cisloskupiny++;
   }
   // Vysledne data pro nahled po zmačknuti tlačitka Vytvořit:
-  let formData = `
-#čislo ZM:
+  let formData = `#čislo ZM:
 ${cisloZm}\n
 #casoserver:
 ${casoserver}\n
@@ -140,13 +142,13 @@ ${funkceProRele}\n
 #Zobrazovane skupiny:
 RMSGM=${rmsgmVysledek}
 ${regulaceVysledek}\n
-#setup EMBUS elektroměr
+#setup EMBUS elektroměr:
 ${elektromeryVysledek}\n
 #PG a PGF:
 ${vysledekPg}
 #PT a PTF:
 ${vysledekPt}
-#Automaticky odesilana data
+#Automaticky odesilana data:
 ${autosidsVysledek}`;
 
   // Když nod č.1 chybi tak je považovano že nody nejsou vubec,tim lpflags,pg a pt v ini souboru nebude.
@@ -224,7 +226,7 @@ function regulaceVypocet() {
     let skupinaMode = document.getElementById(skupina.id + "Mode");
     skupina.checked && (skupinaMode.value == "evr" || skupinaMode.value == "nody")
       ? (regulaceVysledek += `
-#Regulace ${skupina.value}
+#Regulace ${skupina.value}:
 G${cisloskupiny}RC= ${Regulace[skupinaRegulace.value]}`)
       : null;
     cisloskupiny++;
@@ -310,12 +312,17 @@ function priraditNody() {
   if (minRozsah > maxRozsah || minRozsah < 0 || maxRozsah > 240) {
     alert("Špatně zadany rozsah nodu!");
     return;
+  } else if (skupinaNodu > 8) {
+    alert("Maximalni čislo skupiny je 8!");
   }
-
   for (let i = minRozsah; i <= maxRozsah; i++) {
     const vybranyNod = document.getElementById(`bunka-${i}`);
     vybranyNod.value = skupinaNodu;
+    zmenaBarvy(vybranyNod);
   }
+}
+function test() {
+  console.log("hi");
 }
 // Tady budou uchovane hodnoty z tabulky adres nodu pro dalši vypočet LPFLAGS,PG a PT:
 let nodyValuePole = [];
@@ -448,4 +455,20 @@ function downloadIniFile() {
 
   // Инициируем скачивание
   link.click();
+}
+// Tady bude script na zbarveni inputu tabulky Nodu při změně hodnoty value:
+let bunkaNodySeznam = document.getElementsByClassName("inputNody");
+for (bunka of bunkaNodySeznam) {
+  bunka.addEventListener("input", function (bunka) {
+    bunka.target.style.backgroundColor = "lightblue";
+    setTimeout(function () {
+      bunka.target.style.backgroundColor = "";
+    }, 600);
+  });
+}
+function zmenaBarvy(input) {
+  input.style.backgroundColor = "lightblue";
+  setTimeout(function () {
+    input.style.backgroundColor = "";
+  }, 600);
 }
