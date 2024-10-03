@@ -101,7 +101,7 @@ function assignValues() {
       let vybranyCas = `${modeDaneSkupiny.value + "Casy"}`;
       skupinyAModeVysledek += `
 #časy spinani a automatika ${skupina.value}:
-G${cisloskupiny}SB= ${Casy[vybranyCas][0]}
+G${cisloskupiny}SB=${Casy[vybranyCas][0]}
 G${cisloskupiny}SE=${Casy[vybranyCas][1]}
 G${cisloskupiny}AE=1
 `;
