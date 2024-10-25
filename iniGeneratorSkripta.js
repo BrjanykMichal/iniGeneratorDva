@@ -508,10 +508,10 @@ let audioTlacitko = document.getElementById("prepinacHudby");
 audioTlacitko.addEventListener("change", () => {
   audioTlacitko.checked ? audioSoubor.play() : audioSoubor.pause();
 });
-// Scripta por přepinani stylu stranky:
+// Skripta por přepinani stylu stranky:
 let titulniNadpis = document.getElementById("titulniNadpis");
 let stylyOdkaz = document.getElementById("stylyOdkaz");
-let stylJedna = "IniGeneratorStylyNormalni.css";
+let stylJedna = "iniGeneratorStylyNormalni.css";
 let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
   // stylyOdkaz.href==stylDva ? stylyOdkaz.href = stylJedna : stylyOdkaz.href=stylDva;
