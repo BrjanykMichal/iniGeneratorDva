@@ -511,13 +511,13 @@ audioTlacitko.addEventListener("change", () => {
 // Scripta por přepinani stylu stranky:
 let titulniNadpis = document.getElementById("titulniNadpis");
 let stylyOdkaz = document.getElementById("stylyOdkaz");
-let stylJedna = "https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyNormalni.css";
-let stylDva = "https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyBitovka.css";
+let stylJedna = "iniGeneratorStylyNormalni.css";
+let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
   // stylyOdkaz.href==stylDva ? stylyOdkaz.href = stylJedna : stylyOdkaz.href=stylDva;
-  if (stylyOdkaz.href == stylDva) {
-    console.log("if: " + stylyOdkaz.href);
+  if (stylyOdkaz.href == "https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyBitovka.css") {
     stylyOdkaz.href = stylJedna;
+    console.log("if: " + stylyOdkaz.href);
     audioSoubor.pause();
     audioTlacitko.checked = 0;
     audioTlacitko.disabled;
