@@ -516,6 +516,7 @@ let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
   // stylyOdkaz.href==stylDva ? stylyOdkaz.href = stylJedna : stylyOdkaz.href=stylDva;
   if (stylyOdkaz.href == stylDva) {
+    console.log("if: " + stylOdkaz.href);
     stylyOdkaz.href = stylJedna;
     audioSoubor.pause();
     audioTlacitko.checked = 0;
@@ -523,6 +524,7 @@ titulniNadpis.onclick = function () {
     zvukyRozhraniVypnout();
   } else {
     stylyOdkaz.href = stylDva;
+     console.log("else: "+ stylOdkaz.href);
     audioTlacitko.checked = 1;
     audioSoubor.play();
     zvukyRozhraniZapnout();
