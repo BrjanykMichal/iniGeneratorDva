@@ -1,0 +1,294 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  font-family: "Press Start 2P";
+  font-size: 100%;
+  text-shadow: 2px 2px 1px rgb(0, 0, 0), -1px -1px 1px black, 2px -2px 1px black, -1px 1px 1px black;
+  color: rgb(241, 241, 241);
+  background-color: lightskyblue;
+}
+div {
+  margin-left: 0.2em;
+  margin-top: 0.4em;
+  padding: 0.2em;
+}
+.nadpisySkupin {
+  font-size: 80%;
+}
+.budovy {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 190%;
+  background: url("/pictures/budovyOriginalPixeliz.png");
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  animation: scroll 7s linear infinite;
+  z-index: -1;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.budovyClone {
+  animation: scrollClone 7s linear infinite;
+}
+@keyframes scrollClone {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.pozadi {
+  z-index: -1;
+  overflow: hidden;
+  background: url("/pictures/pozadiPixeliz.png");
+  position: fixed;
+  top: -5%;
+  left: 0;
+  width: 120%;
+  height: 100%;
+  background-size: 120%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  animation: animacePozadi 30s linear infinite;
+}
+@keyframes animacePozadi {
+  0% {
+    transform: translateX(0%);
+  }
+  50% {
+    transform: translateX(-10%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.car {
+  background: url("/pictures/caddyOriginalPixeliz.png");
+  background-size: 28%;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  position: fixed;
+  top: -0.2%;
+  left: 0;
+  width: 100%;
+  height: 98%;
+  z-index: -1;
+  animation: autoAnimace 4s linear 1, autoAnimaceVibrace 1s linear infinite;
+}
+@keyframes autoAnimace {
+  0% {
+    transform: translateX(-30%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes autoAnimaceVibrace {
+  0% {
+    background-position-y: bottom;
+  }
+  50% {
+    background-position-y: 99%;
+  }
+  100% {
+    background-position-y: bottom;
+  }
+}
+
+/* Tady budou styly pro tabulky,formulaře a inputy: */
+.titulniNadpisKontejner,
+.titulniNadpisKontejner label,
+.titulniNadpisKontejner h2 {
+  display: inline-block;
+}
+.titulniNadpisKontejner label {
+  color: #ede584;
+  position: relative;
+  top: -7px;
+}
+
+#nodyKontejner {
+  border: 3px solid rgb(248, 212, 92);
+  max-width: fit-content;
+  max-height: 10em;
+  overflow: auto;
+}
+select {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background-color: #f2c0a2;
+  font-family: "Press Start 2P";
+  outline: none;
+}
+
+td {
+  /* border: 1px solid white; */
+  height: 2em;
+  background-color: #c195ed;
+}
+label {
+  /* transition: background-color 0.6s; */
+  display: inline-block;
+  user-select: none;
+  text-align: center;
+  margin: 0.2em;
+  padding: 0.4em;
+  background-color: #bb93e2;
+}
+td input {
+  transition: background-color 0.6s;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  position: relative;
+  top: -0.1em;
+}
+input {
+  /* transition: background-color 0.6s; */
+  background-color: #e76d55;
+  margin-right: 0.3em;
+  font-family: "Press Start 2P";
+  font-size: 80%;
+  outline: none;
+}
+.poleInputu {
+  max-width: 10em;
+  min-width: 4em;
+  height: 2em;
+  padding-left: 0.2em;
+  background-color: #ede584;
+}
+
+textarea {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 100%;
+  color: white;
+  background-color: transparent;
+  border: 3px solid rgb(248, 212, 92);
+}
+.znackaNody,
+.bunkaNody {
+  height: 2em;
+  text-align: start;
+}
+.bunkaNody {
+  background-color: #f2c0a2;
+}
+.inputNody {
+  padding: 0 0.4em;
+  background-color: unset;
+  border: unset;
+  height: 100%;
+  width: 100%;
+}
+.tlacitko {
+  height: 2.7em;
+  padding: 0.5em;
+}
+#titulniNadpis {
+  width: fit-content;
+  border: unset;
+  background-color: unset;
+  user-select: none;
+  color: #ede584;
+  text-shadow: -2px -2px 5px rgb(255, 94, 0), 5px 2px 5px rgb(17, 115, 227);
+  padding: 0.4em;
+}
+/* Styly pro označeni nebo najezd na vybrany element. */
+
+@keyframes blikaniInputu {
+  0% {
+    background-color: #ede584;
+  }
+  50% {
+    background-color: rgb(244, 102, 19);
+  }
+  100% {
+    background-color: #ede584;
+  }
+}
+
+@keyframes blikaniSelectu {
+  0%,
+  100% {
+    background-color: rgb(255, 71, 47);
+  }
+  50% {
+    background-color: #bb93e2;
+  }
+}
+.tlacitko:hover {
+  background-color: #f2c0a2;
+}
+td:has(input:checked),
+label:has(input:checked) {
+  animation: blikaniSelectu 0.2s ease-out 4;
+}
+select:enabled {
+  animation: blikaniSelectu 0.2s ease-out 4;
+}
+.poleInputu:focus {
+  animation: blikaniInputu 0.2s linear infinite;
+}
+td:has(.inputNody:hover) {
+  background-color: #ede584;
+}
+@keyframes blikaniUvitaci {
+  0% {
+    color: blue;
+  }
+  100% {
+    color: yellow;
+  }
+}
+h2,
+body {
+  animation: blikaniUvitaci 1s ease-out 1;
+}
+
+.popredi {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 500%;
+  height: 100%;
+  background: url("pictures/lampaPixellated.png"), url("/pictures/lavicePixellated.png"),
+    url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
+    url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
+    url("/pictures/lampaPixellated.png");
+  background-position: 0 bottom, 15% bottom, 30% bottom, 45% bottom, 60% bottom, 75% bottom, 100% bottom;
+  background-size: auto 65%;
+  background-repeat: no-repeat;
+  white-space: nowrap;
+  overflow: hidden;
+  z-index: -1;
+  animation: poprediPohyb 15s linear infinite;
+}
+@keyframes poprediPohyb {
+  0% {
+    transform: translateX(20%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
