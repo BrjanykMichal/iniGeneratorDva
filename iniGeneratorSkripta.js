@@ -1,4 +1,4 @@
-src = "iniGeneratorStylyNormalni";
+
 // Bloky kodu ktere se budou vkladat do vysledku ini souboru.
 // Společne šasti kodu:
 const casoserver = `SNTP=set_zone=3600#set_interval=10000#datagram://192.168.220.200:123;timeout=2000`;
