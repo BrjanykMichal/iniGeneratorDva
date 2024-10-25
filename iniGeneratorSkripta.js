@@ -517,14 +517,12 @@ titulniNadpis.onclick = function () {
   // stylyOdkaz.href==stylDva ? stylyOdkaz.href = stylJedna : stylyOdkaz.href=stylDva;
   if (stylyOdkaz.href == "https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyBitovka.css") {
     stylyOdkaz.href = stylJedna;
-    console.log("if: " + stylyOdkaz.href);
     audioSoubor.pause();
     audioTlacitko.checked = 0;
     audioTlacitko.disabled;
     zvukyRozhraniVypnout();
   } else {
     stylyOdkaz.href = stylDva;
-     console.log("else: "+ stylyOdkaz.href);
     audioTlacitko.checked = 1;
     audioSoubor.play();
     zvukyRozhraniZapnout();
