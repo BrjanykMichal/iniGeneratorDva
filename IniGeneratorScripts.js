@@ -511,7 +511,7 @@ audioTlacitko.addEventListener("change", () => {
 // Scripta por přepinani stylu stranky:
 let titulniNadpis = document.getElementById("titulniNadpis");
 let stylyOdkaz = document.getElementById("stylyOdkaz");
-let stylJedna = "iniGeneratorStylyNormalni.css";
+let stylJedna = "IniGeneratorStylyNormalni.css";
 let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
   // stylyOdkaz.href==stylDva ? stylyOdkaz.href = stylJedna : stylyOdkaz.href=stylDva;
