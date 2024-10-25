@@ -27,7 +27,7 @@ div {
   left: 0;
   height: 100%;
   width: 190%;
-  background: url("/pictures/budovyOriginalPixeliz.png");
+  background: url("pictures/budovyOriginalPixeliz.png");
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: bottom;
@@ -58,7 +58,7 @@ div {
 .pozadi {
   z-index: -1;
   overflow: hidden;
-  background: url("/pictures/pozadiPixeliz.png");
+  background: url("pictures/pozadiPixeliz.png");
   position: fixed;
   top: -5%;
   left: 0;
@@ -81,7 +81,7 @@ div {
   }
 }
 .car {
-  background: url("/pictures/caddyOriginalPixeliz.png");
+  background: url("pictures/caddyOriginalPixeliz.png");
   background-size: 28%;
   background-repeat: no-repeat;
   background-position: left bottom;
@@ -272,10 +272,10 @@ body {
   left: 0;
   width: 500%;
   height: 100%;
-  background: url("pictures/lampaPixellated.png"), url("/pictures/lavicePixellated.png"),
-    url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
-    url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
-    url("/pictures/lampaPixellated.png");
+  background: url("pictures/lampaPixellated.png"), url("pictures/lavicePixellated.png"),
+    url("pictures/lampaPixellated.png"), url("pictures/stromPixellated.png"),
+    url("pictures/lampaPixellated.png"), url("pictures/stromPixellated.png"),
+    url("pictures/lampaPixellated.png");
   background-position: 0 bottom, 15% bottom, 30% bottom, 45% bottom, 60% bottom, 75% bottom, 100% bottom;
   background-size: auto 65%;
   background-repeat: no-repeat;
