@@ -507,7 +507,7 @@ let gitHubCssOdkaz="https://brjanykmichal.github.io/iniGeneratorDva/iniGenerator
 let stylJedna = "iniGeneratorStylyNormalni.css";
 let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
-  if (stylyOdkaz.href == gitHubCssOdkaz) {
+  if (stylyOdkaz.href !== gitHubCssOdkaz) {
     stylyOdkaz.href = stylJedna;
     audioSoubor.pause();
     audioTlacitko.checked = 0;
