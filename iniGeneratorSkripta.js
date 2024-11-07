@@ -506,6 +506,7 @@ let stylyOdkaz = document.getElementById("stylyOdkaz");
 let stylJedna = "iniGeneratorStylyNormalni.css";
 let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
+  console.log(stylyOdkaz.href);
   if (stylyOdkaz.href == stylDva) {
     stylyOdkaz.href = stylJedna;
     audioSoubor.pause();
