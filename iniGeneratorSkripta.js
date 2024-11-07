@@ -503,11 +503,10 @@ let stylyOdkaz = document.getElementById("stylyOdkaz");
 // let stylJedna = "http://localhost:3000/iniGeneratorStylyNormalni.css";
 // let stylDva = "http://localhost:3000/iniGeneratorStylyBitovka.css";
 // GitHub odkaz:
-let gitHubCssOdkaz="https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyNormalni.css";
 let stylJedna = "iniGeneratorStylyNormalni.css";
 let stylDva = "iniGeneratorStylyBitovka.css";
 titulniNadpis.onclick = function () {
-  if (stylyOdkaz.href !== gitHubCssOdkaz) {
+  if (stylyOdkaz.href != "https://brjanykmichal.github.io/iniGeneratorDva/iniGeneratorStylyNormalni.css") {
     stylyOdkaz.href = stylJedna;
     audioSoubor.pause();
     audioTlacitko.checked = 0;
