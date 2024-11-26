@@ -13,7 +13,7 @@ body {
   background-color: lightskyblue;
 }
 div {
-  margin-left: 0.2em;
+  /* margin-left: 0.2em; */
   margin-top: 0.2em;
   padding: 0.1em;
 }
@@ -27,8 +27,8 @@ div {
   left: 0;
   height: 100%;
   width: 190%;
-  /* Lokalni počitač odkazy:
-  background: url("/pictures/budovyOriginalPixeliz.png"); */
+  /* Lokalni počitač odkazy: */
+  /* background: url("/pictures/budovyOriginalPixeliz.png"); */
   /* GitHub odkazy: */
   background: url("pictures/budovyOriginalPixeliz.png");
   background-size: 100%;
@@ -61,8 +61,8 @@ div {
 .pozadi {
   z-index: -1;
   overflow: hidden;
-  /* Lokalni počitač odkazy:
-  background: url("/pictures/pozadiPixeliz.png"); */
+  /* Lokalni počitač odkazy: */
+  /* background: url("/pictures/pozadiPixeliz.png"); */
   /* GitHub odkazy: */
   background: url("pictures/pozadiPixeliz.png");
   position: fixed;
@@ -87,8 +87,8 @@ div {
   }
 }
 .car {
-  /* Lokalni počitač odkazy:
-  background: url("/pictures/caddyOriginalPixeliz.png"); */
+  /* Lokalni počitač odkazy:*/
+  /* background: url("/pictures/caddyOriginalPixeliz.png"); */
   /* GitHub odkazy: */
   background: url("pictures/caddyOriginalPixeliz.png");
   background-size: 28%;
@@ -135,11 +135,14 @@ div {
   top: -7px;
 }
 
-#nodyKontejner {
+#nodyKontejner,
+#releKontejner {
   border: 3px solid rgb(248, 212, 92);
   max-width: fit-content;
   max-height: 10em;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 select {
   height: 100%;
@@ -160,8 +163,7 @@ label {
   display: inline-block;
   user-select: none;
   text-align: center;
-  margin: 0.2em;
-  padding: 0.4em;
+  padding: 0.5em;
   background-color: #bb93e2;
 }
 td input {
@@ -183,9 +185,12 @@ input {
 .poleInputu {
   max-width: 10em;
   min-width: 4em;
-  height: 2em;
+  /* height: 2em; */
   padding-left: 0.2em;
   background-color: #ede584;
+  font-family: "Tiny5", serif;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 textarea {
@@ -198,17 +203,22 @@ textarea {
 .znackaNody,
 .bunkaNody {
   height: 2em;
+  width: 3em;
   text-align: start;
+  padding-left: 0.2em;
 }
 .bunkaNody {
   background-color: #f2c0a2;
 }
 .inputNody {
-  padding: 0 0.4em;
+  padding: 0.1em;
   background-color: unset;
   border: unset;
   height: 100%;
   width: 100%;
+  font-family: "Tiny5", serif;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 .tlacitko {
   height: 2.7em;
@@ -245,7 +255,7 @@ textarea {
   }
 }
 .tlacitko:hover {
-  background-color: #f2c0a2;
+  background-color: rgb(255, 128, 38);
 }
 td:has(input:checked),
 label:has(input:checked) {
@@ -263,6 +273,7 @@ td:has(.inputNody:hover) {
 h2,
 body {
   animation: blikaniUvitaci 0.4s linear 2;
+  margin: 0 0.5em;
 }
 @keyframes blikaniUvitaci {
   0%,
@@ -280,8 +291,8 @@ body {
   left: 0;
   width: 500%;
   height: 100%;
-  /* Lokalni počitač odkazy:
-  background: url("pictures/lampaPixellated.png"), url("/pictures/lavicePixellated.png"),
+  /* Lokalni počitač odkazy:*/
+  /* background: url("/pictures/lampaPixellated.png"), url("/pictures/lavicePixellated.png"),
     url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
     url("/pictures/lampaPixellated.png"), url("/pictures/stromPixellated.png"),
     url("/pictures/lampaPixellated.png"); */
@@ -305,4 +316,43 @@ body {
   100% {
     transform: translateX(-100%);
   }
+}
+.vedleSebe {
+  display: inline-block;
+}
+.krivka {
+  width: 100%;
+  height: 100%;
+  font-size: 0.5em;
+}
+.krivka,
+.rmsgm {
+  background-color: pink;
+}
+.navbar {
+  width: 100%;
+  height: 2em;
+  background-color: #bb93e2;
+  overflow: hidden;
+  display: block;
+  margin-bottom: 1em;
+}
+.navbar a {
+  font-size: 1rem;
+  color: #ede584;
+  text-decoration: none;
+  padding: 0.2em 0.3em;
+  display: inline-block;
+  margin: 0.1em 1em;
+}
+.navbar select {
+  width: fit-content;
+  height: 100%;
+  float: right;
+}
+.navbar label {
+  float: right;
+  height: 100%;
+  margin: 0;
+  padding-top: 0.4em;
 }

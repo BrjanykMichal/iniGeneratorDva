@@ -36,7 +36,8 @@ td,
 label,
 input,
 textarea,
-select {
+select,
+a {
   border-radius: 0.3em;
 }
 .bunkaNody,
@@ -95,7 +96,8 @@ select:hover,
 textarea:hover,
 input:focus,
 select:focus,
-textarea:focus {
+textarea:focus,
+.navbar a:hover {
   border-color: rgb(153, 153, 255);
   outline: none;
   box-shadow: 0px 0px 6px 1px lightskyblue;
@@ -107,4 +109,36 @@ textarea:focus {
 }
 .prepinacHudbyKontejner {
   display: none;
+}
+.vedleSebe {
+  display: inline-block;
+}
+.krivka {
+  font-size: 0.7em;
+  width: 100%;
+}
+
+.navbar {
+  width: 100%;
+  background-color: rgb(212, 247, 212);
+  overflow: hidden;
+  display: block;
+  margin: 0;
+}
+.navbar a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  padding: 0.2em 0.3em;
+  display: inline-block;
+  margin: 0.1em 1em;
+  background-color: white;
+}
+.navbar select {
+  float: right;
+  padding: 0.2em 0.3em;
+  margin-top: 0.1em;
+  margin-right: 1.5em;
+}
+.navbar label {
+  float: right;
 }
