@@ -19,7 +19,7 @@ const Casy = {
   evrCasy: [43009, 4095],
   nodyCasy: [40960, 40960],
 };
-
+const idSlovy = ["Jedna", "Dva", "Tri", "Ctyry", "Pet", "Sest", "Sedm", "Osm"];
 // Časove pasma:
 const casovePasma = {
   prvniPasmo: `ACB=D20305050D132949314F1E2F0F130A08090407000BFA0AF60FE90FE51CC313D712DA0CEA08F508F309F708FB07000502\nACE=DF0107FE0CF510EA10E21AC91CC510E208F209F209F50AF907FD08000A0509070809131C141E2E4629440B100A0D0807040207010000`,
@@ -71,9 +71,8 @@ function assignValues() {
   let regulaceVysledek = regulaceVypocet("proIni");
   let elektromeryVysledek = elektromeryVypocet();
   let autosidsVysledek = autosidsVypocet();
-  let vysledkySkupinRele = skupinyCasyReleRezimy();
-  let skupinyAutomatRegulaceCasy = vysledkySkupinRele[0];
-  let relatkaRezimy = vysledkySkupinRele[1];
+  let skupinyAutomatRegulaceCasy = skupinyCasyRezimy();
+  let relatkaRezimy = releRezimy();
   let rmsgmVysledek = vypocetRmsgm();
   // Vysledne data pro nahled po zmačknuti tlačitka Vytvořit:
   let formData = `#cislo ZM
@@ -106,210 +105,9 @@ ${vysledekLpflags}`;
   // Vraci vysledek aby funkce šla použit u tlačitka Stahnout.
   return formData;
 }
+
 // ...............Tady konči funkce AsigneValues..........
 
-//Funkce pro čislo ZM.ParseInt převede text s čislem ZM na number a taky odstrani nulu na začatku když tam je.
-function cisloZmFunkce() {
-  let cisloZm = "ID=" + parseInt(document.getElementById("cisloZm").value, 10);
-  return cisloZm;
-}
-// Funkce pro CheckBox Novy SW:
-let novySwCheckbox = function () {
-  if (document.getElementById("novySwCheckbox").checked) {
-    return novySw;
-  } else {
-    return starySw;
-  }
-};
-// Funkce pro vyběr Pasma:
-let vyberPasma = function () {
-  let pasma = document.getElementsByName("pasmo");
-  for (pasmo of pasma) {
-    if (pasmo.checked) {
-      return pasmo.value;
-    }
-  }
-};
-
-// Funkce pro nastaveni času zap a vyp u skupin a taky režimu vystupnich rele.
-function skupinyCasyReleRezimy() {
-  let skupinyAutomatRegulaceCasy = "";
-  let relatkaRezimy = "";
-  let cisloskupiny = 0;
-  for (skupina of skupiny) {
-    if (skupina.checked) {
-      let modeDaneSkupiny = document.getElementById(skupina.id + "Mode");
-      let vybranyCas = `${modeDaneSkupiny.value + "Casy"}`;
-      skupinyAutomatRegulaceCasy += `#casy spinani a automatika ${skupina.value}
-G${cisloskupiny}SB=${Casy[vybranyCas][0]}
-G${cisloskupiny}SE=${Casy[vybranyCas][1]}
-G${cisloskupiny}AE=1\n`;
-      // Tady bude přidani pro skupiny EVR nebo NODY zapnuti Regulačni křivky.
-      // Pro skupinu s EVR a NODY se zada řežim relatka #NODY,tzn rele nema žadný režim spinani.
-      if (modeDaneSkupiny.value == "evr") {
-        skupinyAutomatRegulaceCasy += `G${cisloskupiny}RE=1\n`;
-        relatkaRezimy += `#funkce pro Rele ${cisloskupiny + 1}\n#NODY\n`;
-        // Tady když skupina ovlada NODY a nejsou to EVR,tak přidame Skupina x je slave Skupiny 0.
-      } else if (modeDaneSkupiny.value == "nody") {
-        skupinyAutomatRegulaceCasy += `G${cisloskupiny}RE=1\nG${cisloskupiny}SL=0\n`;
-        relatkaRezimy += `#funkce pro Rele ${cisloskupiny + 1}\n#NODY\n`;
-      }
-      // Tady se nastavi pro skupiny bez Nodu,režim relatek: 2 -> Spinani.
-      else {
-        relatkaRezimy += `#funkce pro Rele ${cisloskupiny + 1}\nR${cisloskupiny}M=2\n`;
-      }
-    }
-    cisloskupiny++;
-  }
-  // Odstrani bile znaky a \n na konci řetězce:
-  return [skupinyAutomatRegulaceCasy, relatkaRezimy];
-}
-//Funkce pro AUTOSIDS1 a AUTOSIDS1 + AUTOSIDS4 u noveho SW :
-function autosidsVypocet() {
-  let autosidsVysledek = "";
-  let autosidsJedna = "AUTOSIDS1=5;0;afm;";
-  let autosidsCtyry = "AUTOSIDS4=60;0;";
-  let novySwCheckbox = document.getElementById("novySwCheckbox");
-  let cisloskupiny = 0;
-  for (skupina of skupiny) {
-    let skupinaMode = document.getElementById(skupina.id + "Mode");
-    if (skupina.checked) {
-      autosidsJedna += "gps" + cisloskupiny + ";";
-      //Když se nejedna o Nody nebo EVR tzn. skupina ovlada stykač a ma elektroměr.
-      if (skupinaMode.value !== "evr" && skupinaMode.value !== "nody") {
-        autosidsCtyry +=
-          "eme" +
-          (cisloskupiny + 1) +
-          ";i" +
-          (cisloskupiny + 11) +
-          ";i" +
-          (cisloskupiny + 21) +
-          ";i" +
-          (cisloskupiny + 31) +
-          ";";
-      }
-    }
-    cisloskupiny++;
-  }
-  // Odstranime ";" na konci retězce.
-  autosidsCtyry = autosidsCtyry.slice(0, -1);
-
-  if (novySwCheckbox.checked) {
-    autosidsVysledek = autosidsJedna + "dk;up;sp;eum;eua;arvosc;outsc" + "\n" + autosidsCtyry;
-  } else {
-    autosidsVysledek = autosidsJedna + "dk;cons;econs;up;sp;sc;eum;eua";
-  }
-  return autosidsVysledek;
-}
-// Funkce pro vypočet elektroměru EMBUSNR:
-function elektromeryVypocet() {
-  let elektromeryVysledek = "";
-  let novySwCheckbox = document.getElementById("novySwCheckbox");
-  if (novySwCheckbox.checked) {
-    elektromeryVysledek += "EMBUSNR=WAGO879:1;";
-    let cisloskupiny = 11;
-    for (skupina of skupiny) {
-      let skupinaMode = document.getElementById(skupina.id + "Mode");
-      if (skupina.checked && skupinaMode.value !== "evr" && skupinaMode.value !== "nody") {
-        elektromeryVysledek += "WAGO879:" + cisloskupiny + ";";
-      }
-      cisloskupiny++;
-    }
-  } else {
-    elektromeryVysledek = `EMBUSNR=0`;
-  }
-  return elektromeryVysledek;
-}
-// Zpracovani vyběru regulačnich křivek:
-function regulaceVypocet(ucel) {
-  let regulaceVysledek = [];
-  let cisloskupiny = 0;
-  for (skupina of skupiny) {
-    let skupinaRegulace = document.getElementById(skupina.id + "Regulace");
-    let skupinaMode = document.getElementById(skupina.id + "Mode");
-    if (skupina.checked && (skupinaMode.value == "evr" || skupinaMode.value == "nody")) {
-      if (ucel == "proIni") {
-        regulaceVysledek +=
-          "#regulace" + skupina.value + "\nG" + cisloskupiny + "RC=" + Regulace[skupinaRegulace.value] + "\n";
-      } else if (ucel == "proZobrazeni") {
-        regulaceVysledek.push("G" + cisloskupiny + "RC=" + Regulace[skupinaRegulace.value]);
-      }
-    } else {
-      null;
-    }
-    cisloskupiny++;
-  }
-  return regulaceVysledek;
-}
-
-function zobrazeniRegulaci(pole) {
-  let regulaceKontejner = document.getElementsByClassName("krivka");
-  for (let x = 0; x < pole.length; x++) {
-    regulaceKontejner[pole[x][1]].value = pole[x];
-  }
-}
-
-// funkce pro vypočet a zobrazeni RMSGM. Vyvolava se automaticky ve funkci blokovaniVyberu
-function vypocetRmsgm() {
-  let rmsgmKalkulace =
-    2 ** 0 * skupiny[0].checked +
-    2 ** 1 * skupiny[1].checked +
-    2 ** 2 * skupiny[2].checked +
-    2 ** 3 * skupiny[3].checked +
-    2 ** 4 * skupiny[4].checked +
-    2 ** 5 * skupiny[5].checked +
-    2 ** 6 * skupiny[6].checked +
-    2 ** 7 * skupiny[7].checked;
-  let rmsgmElement = document.getElementById("rmsgm");
-  rmsgmElement.value = "RMSGM=" + rmsgmKalkulace;
-  return "RMSGM=" + rmsgmKalkulace;
-}
-//Kod pro blokovani vyběru Mode když neni vybrana Skupina:
-for (skupina of skupiny) {
-  // skupina je prvni element z skupiny-node list checkboxu.
-  // skupinaVPoradi je konkretni checkbox.
-  // skupinaMode je vyběr z Astro,Přechod atd.
-  //skupinaRegulace je konkretni vyběr z regulaci.
-  let skupinaVPoradi = document.getElementById(skupina.id);
-  let skupinaRegulace = document.getElementById(skupinaVPoradi.id + "Regulace");
-  let skupinaMode = document.getElementById(skupinaVPoradi.id + "Mode");
-  let skupinaKrivkaZobrazeni = document.getElementById(skupinaVPoradi.id + "Krivka");
-  skupinaRegulace.addEventListener("change", () => {
-    zobrazeniRegulaci(regulaceVypocet("proZobrazeni"));
-  });
-  // funkce pro blokovani vyběru:
-  function blokovaniVyberu() {
-    skupinaMode.disabled = !skupinaVPoradi.checked;
-    skupinaRegulace.disabled = !(
-      skupinaVPoradi.checked &&
-      (skupinaMode.value === "nody" || skupinaMode.value === "evr")
-    );
-    skupinaKrivkaZobrazeni.disabled = skupinaRegulace.disabled;
-    vypocetRmsgm();
-    zobrazeniRegulaci(regulaceVypocet("proZobrazeni"));
-  }
-  skupina.addEventListener("change", blokovaniVyberu);
-  skupinaMode.addEventListener("change", blokovaniVyberu);
-}
-//Funkce pro možnost kopirovani obsahu value tlačitka rmsgm a křivek.
-function kopirovani(prvek) {
-  let priprava = document.createElement("textarea");
-  priprava.value = "setup " + prvek.value;
-  document.body.appendChild(priprava);
-  priprava.select();
-  document.execCommand("copy");
-  document.body.removeChild(priprava);
-}
-let krivkyZobrazeni = document.querySelectorAll(".krivka");
-krivkyZobrazeni.forEach((element) => {
-  element.addEventListener("click", () => {
-    kopirovani(element);
-  });
-});
-let rmsgmElement = document.getElementById("rmsgm");
-rmsgmElement.addEventListener("click", () => {
-  kopirovani(rmsgmElement);
-});
 //Tabulka s vyběrem a zobrazenim nodu a jejich skupin:
 //Blok pro vytvořeni tabulky:
 const nodyTabulka = document.getElementById("nodyTabulka");
@@ -341,18 +139,30 @@ for (let row = 1; row <= 26; row++) {
 }
 // Tabulka s nastavenim vystupnich rele.
 const radekZnackaRele = document.getElementById("radekZnackaRele");
+const radekPritomnostRele = document.getElementById("radekPritomnostRele");
 const radekSkupinaRele = document.getElementById("radekSkupinaRele");
-for (let x = 1; x <= 16; x++) {
+for (let x = 1; x <= 24; x++) {
   const bunka = document.createElement("td");
   bunka.setAttribute("class", "bunkaNody");
   if (x <= 8) {
     bunka.setAttribute("class", "znackaNody");
     bunka.textContent = x;
     radekZnackaRele.appendChild(bunka);
+  } else if (x <= 16) {
+    bunka.setAttribute("class", "znackaNody stylJednaObrys");
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("id", "rele" + idSlovy[x - 9]);
+    checkbox.setAttribute("name", "rele");
+    const label = document.createElement("label");
+    label.setAttribute("class", "releCheckbox");
+    label.appendChild(checkbox);
+    bunka.appendChild(label);
+    radekPritomnostRele.appendChild(bunka);
   } else {
     const input = document.createElement("input");
     input.setAttribute("class", "inputNody");
-    input.setAttribute("value", x - 8);
+    input.setAttribute("value", x - 16);
     input.type = "number";
     input.min = 1;
     input.max = 8;
@@ -362,6 +172,223 @@ for (let x = 1; x <= 16; x++) {
     radekSkupinaRele.appendChild(bunka);
   }
 }
+
+//Funkce pro čislo ZM.ParseInt převede text s čislem ZM na number a taky odstrani nulu na začatku když tam je.
+function cisloZmFunkce() {
+  let cisloZm = "ID=" + parseInt(document.getElementById("cisloZm").value, 10);
+  return cisloZm;
+}
+// Funkce pro CheckBox Novy SW:
+let novySwCheckbox = function () {
+  if (document.getElementById("novySwCheckbox").checked) {
+    return novySw;
+  } else {
+    return starySw;
+  }
+};
+// Funkce pro vyběr Pasma:
+let vyberPasma = function () {
+  let pasma = document.getElementsByName("pasmo");
+  for (pasmo of pasma) {
+    if (pasmo.checked) {
+      return pasmo.value;
+    }
+  }
+};
+
+// Funkce pro nastaveni času zap a vyp u skupin a taky zapnuti automatiky a regulace.
+function skupinyCasyRezimy() {
+  let skupinyAutomatRegulaceCasy = "";
+  let cisloskupiny = 0;
+  for (skupina of skupiny) {
+    if (skupina.checked) {
+      let modeDaneSkupiny = document.getElementById(skupina.id + "Mode");
+      let vybranyCas = `${modeDaneSkupiny.value + "Casy"}`;
+      skupinyAutomatRegulaceCasy += `#casy spinani a automatika ${skupina.value}
+G${cisloskupiny}SB=${Casy[vybranyCas][0]}
+G${cisloskupiny}SE=${Casy[vybranyCas][1]}
+G${cisloskupiny}AE=1\n`;
+      // Tady bude přidani pro skupiny EVR nebo NODY zapnuti Regulačni křivky.
+      if (modeDaneSkupiny.value == "evr") {
+        skupinyAutomatRegulaceCasy += `G${cisloskupiny}RE=1\n`;
+        // Tady když skupina ovlada NODY a nejsou to EVR,tak přidame Skupina x je slave Skupiny 0.
+      } else if (modeDaneSkupiny.value == "nody") {
+        skupinyAutomatRegulaceCasy += `G${cisloskupiny}RE=1\nG${cisloskupiny}SL=0\n`;
+      }
+    }
+    cisloskupiny++;
+  }
+  return skupinyAutomatRegulaceCasy;
+}
+function releRezimy() {
+  let releSeznam = document.getElementsByName("rele");
+  let modeSeznam = document.getElementsByName("skupinaMode");
+  let relatkaRezimyVysledek = "";
+  for (let x = 0; x < 8; x++) {
+    if (releSeznam[x].checked && (modeSeznam[x].value != "evr" || modeSeznam[x].value != "nody")) {
+      relatkaRezimyVysledek += "#funkce pro Rele " + (x + 1) + "\nR" + x + "M=2\n";
+    } else if (modeSeznam[x].value == "evr" || modeSeznam[x].value == "nody") {
+      relatkaRezimyVysledek += "#funkce pro Rele " + (x + 1) + "\n#NODY\n";
+    }
+  }
+  return relatkaRezimyVysledek;
+}
+
+//Funkce pro AUTOSIDS1 a AUTOSIDS1 + AUTOSIDS4 u noveho SW :
+function autosidsVypocet() {
+  let autosidsVysledek = "";
+  let autosidsJedna = "AUTOSIDS1=5;0;afm;";
+  let autosidsCtyry = "AUTOSIDS4=60;0;";
+  let novySwCheckbox = document.getElementById("novySwCheckbox");
+  let releSeznam = document.getElementsByName("rele");
+  let cisloskupiny = 0;
+  for (skupina of skupiny) {
+    if (skupina.checked) {
+      autosidsJedna += "gps" + cisloskupiny + ";";
+      //Když se nejedna o Nody nebo EVR tzn. skupina ovlada stykač a ma elektroměr.
+    }
+    if (releSeznam[cisloskupiny].checked) {
+      autosidsCtyry +=
+        "eme" +
+        (cisloskupiny + 1) +
+        ";i" +
+        (cisloskupiny + 11) +
+        ";i" +
+        (cisloskupiny + 21) +
+        ";i" +
+        (cisloskupiny + 31) +
+        ";";
+    }
+    cisloskupiny++;
+  }
+  // Odstranime ";" na konci retězce.
+  autosidsCtyry = autosidsCtyry.slice(0, -1);
+
+  if (novySwCheckbox.checked) {
+    autosidsVysledek = autosidsJedna + "dk;up;sp;eum;eua;arvosc;outsc" + "\n" + autosidsCtyry;
+  } else {
+    autosidsVysledek = autosidsJedna + "dk;cons;econs;up;sp;sc;eum;eua";
+  }
+  return autosidsVysledek;
+}
+// Funkce pro vypočet elektroměru EMBUSNR:
+function elektromeryVypocet() {
+  let elektromeryVysledek = "";
+  let novySwCheckbox = document.getElementById("novySwCheckbox");
+  if (novySwCheckbox.checked) {
+    elektromeryVysledek += "EMBUSNR=WAGO879:1;";
+    let cisloskupiny = 11;
+    let releSeznam = document.getElementsByName("rele");
+    for (rele of releSeznam) {
+      if (rele.checked) {
+        elektromeryVysledek += "WAGO879:" + cisloskupiny + ";";
+      }
+      cisloskupiny++;
+    }
+  } else {
+    elektromeryVysledek = `EMBUSNR=0`;
+  }
+  return elektromeryVysledek;
+}
+// Zpracovani vyběru regulačnich křivek:
+function regulaceVypocet(ucel) {
+  let regulaceVysledek = [];
+  let cisloskupiny = 0;
+  for (skupina of skupiny) {
+    let skupinaRegulace = document.getElementById(skupina.id + "Regulace");
+    let skupinaMode = document.getElementById(skupina.id + "Mode");
+    if (skupina.checked && (skupinaMode.value == "evr" || skupinaMode.value == "nody")) {
+      if (ucel == "proIni") {
+        regulaceVysledek +=
+          "#regulace " +
+          skupina.value +
+          "\nG" +
+          cisloskupiny +
+          "RC=" +
+          Regulace[skupinaRegulace.value] +
+          "\n";
+      } else if (ucel == "proZobrazeni") {
+        regulaceVysledek.push("G" + cisloskupiny + "RC=" + Regulace[skupinaRegulace.value]);
+      }
+    } else {
+      null;
+    }
+    cisloskupiny++;
+  }
+  return regulaceVysledek;
+}
+
+function zobrazeniRegulaci(pole) {
+  let regulaceKontejner = document.getElementsByClassName("krivka");
+  for (let x = 0; x < pole.length; x++) {
+    regulaceKontejner[pole[x][1]].innerHTML = pole[x];
+  }
+}
+
+// funkce pro vypočet a zobrazeni RMSGM. Vyvolava se automaticky ve funkci blokovaniVyberu
+function vypocetRmsgm() {
+  let rmsgmKalkulace =
+    2 ** 0 * skupiny[0].checked +
+    2 ** 1 * skupiny[1].checked +
+    2 ** 2 * skupiny[2].checked +
+    2 ** 3 * skupiny[3].checked +
+    2 ** 4 * skupiny[4].checked +
+    2 ** 5 * skupiny[5].checked +
+    2 ** 6 * skupiny[6].checked +
+    2 ** 7 * skupiny[7].checked;
+  let rmsgmElement = document.getElementById("rmsgm");
+  rmsgmElement.innerHTML = "RMSGM=" + rmsgmKalkulace;
+  return "RMSGM=" + rmsgmKalkulace;
+}
+//Kod pro blokovani vyběru Mode když neni vybrana Skupina:
+for (skupina of skupiny) {
+  // skupina je prvni element z skupiny-node list checkboxu.
+  // skupinaVPoradi je konkretni checkbox.
+  // skupinaMode je vyběr z Astro,Přechod atd.
+  //skupinaRegulace je konkretni vyběr z regulaci.
+  let skupinaVPoradi = document.getElementById(skupina.id);
+  let skupinaRegulace = document.getElementById(skupinaVPoradi.id + "Regulace");
+  let skupinaMode = document.getElementById(skupinaVPoradi.id + "Mode");
+  let skupinaKrivkaZobrazeni = document.getElementById(skupinaVPoradi.id + "Krivka");
+  let relatkoVPoradi = document.getElementById("rele" + skupina.id.substring(7));
+  skupinaRegulace.addEventListener("change", () => {
+    zobrazeniRegulaci(regulaceVypocet("proZobrazeni"));
+  });
+  // funkce pro blokovani vyběru:
+  function blokovaniVyberu() {
+    skupinaMode.disabled = !skupinaVPoradi.checked;
+    skupinaRegulace.disabled = !(
+      skupinaVPoradi.checked &&
+      (skupinaMode.value === "nody" || skupinaMode.value === "evr")
+    );
+    relatkoVPoradi.checked =
+      !skupinaMode.disabled && skupinaMode.value != "nody" && skupinaMode.value != "evr";
+    skupinaRegulace.disabled ? (skupinaKrivkaZobrazeni.textContent = "G0RC=00000000") : null;
+    zobrazeniRegulaci(regulaceVypocet("proZobrazeni"));
+    vypocetRmsgm();
+  }
+  skupina.addEventListener("change", blokovaniVyberu);
+  skupinaMode.addEventListener("change", blokovaniVyberu);
+}
+//Funkce pro možnost kopirovani obsahu value tlačitka rmsgm a křivek.
+function kopirovani(prvek) {
+  let priprava = document.createElement("textarea");
+  priprava.value = "setup " + prvek.textContent;
+  document.body.appendChild(priprava);
+  priprava.select();
+  document.execCommand("copy");
+  document.body.removeChild(priprava);
+}
+let krivkyZobrazeni = document.querySelectorAll(".krivka");
+krivkyZobrazeni.forEach((element) => {
+  element.addEventListener("click", () => {
+    kopirovani(element);
+  });
+});
+let rmsgmElement = document.getElementById("rmsgm");
+rmsgmElement.addEventListener("click", () => {
+  kopirovani(rmsgmElement);
+});
 
 //Kod Pro tlačitko Přiřazeni nodu. Změni hodnotu value u vybranych nodu na zakladě vybraneho rozsahu:
 function priraditNody() {
@@ -503,20 +530,20 @@ function sberDatZTabulkyNodu() {
     vysledekPt += "PT" + nazevPt + "=" + hodnota[1] + "\n";
   }
 
-  // console.log("nodyValuePole: " + nodyValuePole + " delka: " + nodyValuePole.length);
-  // console.log(
-  //   "nodyValuePoleProVypocet: " + nodyValuePoleProVypocet + " delka: " + nodyValuePoleProVypocet.length
-  // );
-  // console.log("nody Bajty: " + nodyBajtyPole + "delka: " + nodyBajtyPole.length);
-  // console.log("prvni Vypocet lpflags: " + prvniVypocetLpflags + "delka: " + prvniVypocetLpflags.length);
-  // console.log("druhy Vypocet lpflags: " + druhyVypocetLpflags + " delka: " + druhyVypocetLpflags.length);
-  // console.log("Nody Přitomnost: " + nodyPritomnost + " delka: " + nodyPritomnost.length);
-  // console.log("Vysledek vysledekLpflags: " + vysledekLpflags + " delka: " + vysledekLpflags.length);
-  // console.log("Hodnota PG: " + hodnotaPg + " delka: " + hodnotaPg.length);
-  // console.log("Vysledek PG: " + "\n" + vysledekPg + " delka: " + vysledekPg.length);
-  // console.log("Hodnota PT: " + hodnotaPt + " delka: " + hodnotaPt.length);
-  // console.log("Vysledek PT " + "\n" + vysledekPt + " delka: " + vysledekPt.length);
-  // console.log("nodyPtData: " + nodyPtData + " delka: " + nodyPtData.length);
+  console.log("nodyValuePole: " + nodyValuePole + " delka: " + nodyValuePole.length);
+  console.log(
+    "nodyValuePoleProVypocet: " + nodyValuePoleProVypocet + " delka: " + nodyValuePoleProVypocet.length
+  );
+  console.log("nody Bajty: " + nodyBajtyPole + "delka: " + nodyBajtyPole.length);
+  console.log("prvni Vypocet lpflags: " + prvniVypocetLpflags + "delka: " + prvniVypocetLpflags.length);
+  console.log("druhy Vypocet lpflags: " + druhyVypocetLpflags + " delka: " + druhyVypocetLpflags.length);
+  console.log("Nody Přitomnost: " + nodyPritomnost + " delka: " + nodyPritomnost.length);
+  console.log("Vysledek vysledekLpflags: " + vysledekLpflags + " delka: " + vysledekLpflags.length);
+  console.log("Hodnota PG: " + hodnotaPg + " delka: " + hodnotaPg.length);
+  console.log("Vysledek PG: " + "\n" + vysledekPg + " delka: " + vysledekPg.length);
+  console.log("Hodnota PT: " + hodnotaPt + " delka: " + hodnotaPt.length);
+  console.log("Vysledek PT " + "\n" + vysledekPt + " delka: " + vysledekPt.length);
+  console.log("nodyPtData: " + nodyPtData + " delka: " + nodyPtData.length);
 
   return [vysledekLpflags, vysledekPg, vysledekPt];
 }
