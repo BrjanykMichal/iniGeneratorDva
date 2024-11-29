@@ -20,6 +20,7 @@ body {
   margin: 0;
   padding: 0.1rem;
   width: 2.5rem;
+  text-align: center;
 }
 select {
   font-size: 1rem;
@@ -91,6 +92,8 @@ textarea {
 }
 
 /* Styly pro označeni nebo najezd na vybrany element. */
+.rmsgm:hover,
+.krivka:hover,
 input:hover,
 select:hover,
 textarea:hover,
@@ -113,9 +116,15 @@ textarea:focus,
 .vedleSebe {
   display: inline-block;
 }
+.rmsgm {
+  font-weight: 600;
+  padding: 0.2em;
+}
 .krivka {
-  font-size: 0.7em;
+  display: block;
   width: 100%;
+  font-size: 0.7em;
+  text-align: center;
 }
 
 .navbar {
@@ -141,4 +150,7 @@ textarea:focus,
 }
 .navbar label {
   float: right;
+}
+.releCheckbox {
+  display: block;
 }
