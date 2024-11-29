@@ -282,34 +282,34 @@
             <!-- Řadek pro zobrazeni regulaci -->
             <tr>
               <td>
-                <input type="button" id="skupinaJednaKrivka" class="tlacitko krivka" /disabled></input>
+                <label id="skupinaJednaKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button" id="skupinaDvaKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaDvaKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button" id="skupinaTriKrivka" class="tlacitko krivka"/disabled></input>
+                <label  id="skupinaTriKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button"id="skupinaCtyryKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaCtyryKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button"id="skupinaPetKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaPetKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button"id="skupinaSestKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaSestKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button" id="skupinaSedmKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaSedmKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
               <td>
-                <input type="button"id="skupinaOsmKrivka" class="tlacitko krivka"/disabled></input>
+                <label id="skupinaOsmKrivka" class="stylJednaObrys krivka">GxRC=00000000</label>
               </td>
              </tr>
         </table>
       </div>
       <div>
-        <div class="vedleSebe stylJednaObrys">
+        <div class="vedleSebe">
           <label class="vedleSebe stylJednaObrys" for="novySwCheckbox">Novy SW:<input type="checkbox" id="novySwCheckbox" /></label>
         </div>
         <div class="vedleSebe stylJednaObrys">
@@ -318,7 +318,7 @@
           <label for="tretiPasmo"><input type="radio" name="pasmo" id="tretiPasmo" value="tretiPasmo" />3 Pasmo</label>
         </div>
         <div class="vedleSebe" >
-          <input type="button" value="RMSGM=0" id="rmsgm" class="tlacitko rmsgm"></input>
+          <label id="rmsgm" class="stylJednaObrys rmsgm">RMSGM=0</label>
         </div>
       </div>
       <div>
@@ -339,7 +339,8 @@
         </div>
         <div id="releKontejner" class="stylJednaObrys">
           <table id="releTabulka">
-            <tr id="radekZnackaRele"><td><label>Relatko:</label></td></tr>
+            <tr id="radekZnackaRele"><td><label>Stykač:</label></td></tr>
+            <tr id="radekPritomnostRele"><td><label>Aktivni:</label></td></tr>
             <tr id="radekSkupinaRele"><td><label>Skupina:</label></td></tr>
           </table>
         </div>
