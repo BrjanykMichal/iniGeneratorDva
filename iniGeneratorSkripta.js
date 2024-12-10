@@ -420,7 +420,7 @@ function sberDatZTabulkyNodu() {
     nodyBajtyPole = nodyBajtyPole.concat(Array(8).fill(i));
   }
 
-  let inputNody = document.querySelectorAll(".inputNody");
+  let inputNody = document.querySelectorAll("td");
   // Vytvoři pole kde budou čisla skupiny ke ktere nod patři,celkem 256 pozic s čišly od 0 do 8:
   let nodyValuePole = [];
   nodyValuePole = Array.from(inputNody).map((hodnota) => Number(hodnota.value));

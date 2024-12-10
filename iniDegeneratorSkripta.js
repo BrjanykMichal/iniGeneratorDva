@@ -32,7 +32,7 @@ const Casy = {
   "B-": "Astro -",
   "E+": "Astro +",
   "E-": "Astro -",
-  F: "Fixni:",
+  F: "Přesně v:",
 };
 // Parovani modu rele:
 const Rele = {
@@ -45,7 +45,7 @@ tlacitkoDekodovat.addEventListener("click", () => {
   let vstupniHodnotyPole = vstupniHodnoty.value.split("\n");
   // Zadame prazdnym buňkam hodnotu "neaktivni"
   for (let x = 0; x <= 53; x++) {
-    elementyTabulky[x].textContent = "neaktivni";
+    elementyTabulky[x].textContent = "X";
   }
 
   kontrolaElementu(vstupniHodnotyPole);
@@ -70,13 +70,13 @@ function kontrolaElementu(pole) {
         typSw.textContent = "Nový";
         break;
       case element.includes("ACB=D20"):
-        casovePasmo.textContent = "První";
+        casovePasmo.textContent = "1";
         break;
       case element.includes("ACB=D80"):
-        casovePasmo.textContent = "Druhé";
+        casovePasmo.textContent = "2";
         break;
       case element.includes("ACB=DC0"):
-        casovePasmo.textContent = "Třetí";
+        casovePasmo.textContent = "3";
       case element.includes("EMBUSNR=0") || element.includes("EMBUSNR=DTS"):
         typElektromeru.textContent = "DTS";
         pocetElektromeru.textContent = element.split(";DTS").length + element.split(";WAGO").length - 2;
@@ -95,7 +95,7 @@ function kontrolaElementu(pole) {
         bunka = document.getElementById("funkceA-" + skupina);
         casy[1] ? (bunka.textContent = "Zapnuti") : (bunka.textContent = "Vypnuti");
         bunka = document.getElementById("casA-" + skupina);
-        bunka.textContent = Casy[casy[0]] + " " + casy[2] + " hod." + casy[3] + " min.";
+        bunka.textContent = Casy[casy[0]] + " " + casy[2] + " h. " + casy[3] + " m.";
         break;
       case element.includes("SE="):
         skupina = parseInt(element.charAt(1)) + 1;
@@ -103,7 +103,7 @@ function kontrolaElementu(pole) {
         bunka = document.getElementById("funkceB-" + skupina);
         casy[1] ? (bunka.textContent = "Zapnuti") : (bunka.textContent = "Vypnuti");
         bunka = document.getElementById("casB-" + skupina);
-        bunka.textContent = Casy[casy[0]] + " " + casy[2] + " hod." + casy[3] + " min.";
+        bunka.textContent = Casy[casy[0]] + " " + casy[2] + " h. " + casy[3] + " m.";
         break;
       case /R\dM/.test(element):
         skupina = parseInt(element.charAt(1)) + 1;
@@ -114,22 +114,29 @@ function kontrolaElementu(pole) {
         polePgf = polePgf.concat(dekodovaniPg(element.split("=")[1]));
         bunka = document.getElementsByClassName("releSkupina");
         polePgf.forEach((element) => {
-          bunka[polePgf.indexOf(element)].textContent = element;
+          // Zvyšime hodnotu každeho elementu +1:
+          bunka[polePgf.indexOf(element)].textContent = element + 1;
         });
         break;
       case /PG\d/.test(element):
         polePg = polePg.concat(dekodovaniPg(element.split("=")[1]));
+        break;
       default:
         break;
     }
   });
-  //Zadame prazdnym buňkam hodnotu "0" aby při změne ini souboru se hodnoty vypočtu ynulovaly.
   bunka = document.getElementsByClassName("inputNodyDekoder");
+  //Zadame prazdnym buňkam hodnotu "0" aby dodržet plny počet bodu 239.
   polePg = polePg.concat(Array(239 - polePg.length).fill(0));
+  //Zvyšime +1 hodnotu každeho elementu:
+  // polePg.forEach((hodnotaElementu, indexElementu, danePole) => {
+  //   hodnotaElementu > 0 ? (danePole[indexElementu] = hodnotaElementu + 1) : null;
+  // });
   //Odstranime nulovy nod.
   polePg.shift();
   for (let x = 0; x < polePg.length; x++) {
-    bunka[x].textContent = polePg[x];
+    //Zvyšime +1 hodnotu každeho elementu:
+    bunka[x].textContent = polePg[x] > 0 ? polePg[x] + 1 : 0;
   }
 }
 
@@ -211,7 +218,7 @@ function kodovaniPg(a, b, c, d, e, f, g, h) {
 }
 // Funkce pro dekodovani PG:
 // Přiklad argumentu: "1412567152"
-// Vrati pole s 256 elementy kde každa hodnota udava čislo skupiny ve ktere prvek je.
+// Vrati pole s 8 elementy kde každa hodnota udava čislo skupiny ve ktere prvek je.
 function dekodovaniPg(vstup) {
   const vystup = [];
   for (let i = 0; i < 8; i++) {
@@ -284,3 +291,87 @@ function dekodovaniLpflags(vysledekLpflags) {
 
   return dekodovanyVysledek;
 }
+// Kod pro spuštěni hudby:
+let audioSoubor = document.getElementById("audioSoubor");
+let audioTlacitko = document.getElementById("prepinacHudby");
+audioTlacitko.addEventListener("change", () => {
+  audioTlacitko.checked ? audioSoubor.play() : audioSoubor.pause();
+});
+let stylyVyber = document.getElementById("stylyVyber");
+let stylyOdkaz = document.getElementById("stylyOdkaz");
+stylyVyber.addEventListener("change", () => {
+  if (stylyOdkaz.href.includes("Bitovka")) {
+    stylyOdkaz.href = stylyOdkaz.href.replace("Bitovka", "Normalni");
+    audioSoubor.pause();
+    audioTlacitko.checked = 0;
+    audioTlacitko.disabled;
+    zvukyRozhraniVypnout();
+  } else {
+    stylyOdkaz.href = stylyOdkaz.href.replace("Normalni", "Bitovka");
+    audioTlacitko.checked = 1;
+    audioSoubor.play();
+    zvukyRozhraniZapnout();
+  }
+});
+// Kod pro zvuk inputu,selectu a tlačitek.
+let zvukInputFocus = document.getElementById("zvukInputFocus");
+let zvukInputChange = document.getElementById("zvukInputChange");
+let zvukSelectClick = document.getElementById("zvukSelectClick");
+let zvukCheckboxClick = document.getElementById("zvukCheckboxClick");
+let zvukButtonClick = document.getElementById("zvukButtonClick");
+let kolekceInputu = document.querySelectorAll("input[type=number],input[type=text]");
+let kolekceSelectu = document.querySelectorAll("select");
+let kolekceCheckboxu = document.querySelectorAll("input[type=checkbox],input[type=radio]");
+let kolekceButtonu = document.querySelectorAll("input[type=button],input[type=submit]");
+
+let zvukInputFocusPrehrat = function () {
+  zvukInputFocus.currentTime = 0;
+  zvukInputFocus.play();
+};
+let zvukInputChangePrehrat = function () {
+  zvukInputChange.currentTime = 0;
+  zvukInputChange.play();
+};
+
+let zvukSelectClickPrehrat = function () {
+  zvukSelectClick.currentTime = 0;
+  zvukSelectClick.play();
+};
+let zvukCheckboxClickPrehrat = function () {
+  zvukCheckboxClick.currentTime = 0;
+  zvukCheckboxClick.play();
+};
+let zvukButtonuClickPrehrat = function () {
+  zvukButtonClick.currentTime = 0;
+  zvukButtonClick.play();
+};
+let zvukyRozhraniZapnout = function () {
+  kolekceInputu.forEach((input) => {
+    input.addEventListener("focus", zvukInputFocusPrehrat);
+    input.addEventListener("input", zvukInputChangePrehrat);
+  });
+  kolekceSelectu.forEach((select) => {
+    select.addEventListener("click", zvukSelectClickPrehrat);
+  });
+  kolekceCheckboxu.forEach((checkbox) => {
+    checkbox.addEventListener("change", zvukCheckboxClickPrehrat);
+  });
+  kolekceButtonu.forEach((button) => {
+    button.addEventListener("click", zvukButtonuClickPrehrat);
+  });
+};
+let zvukyRozhraniVypnout = function () {
+  kolekceInputu.forEach((input) => {
+    input.removeEventListener("focus", zvukInputFocusPrehrat);
+    input.removeEventListener("input", zvukInputChangePrehrat);
+  });
+  kolekceSelectu.forEach((select) => {
+    select.removeEventListener("click", zvukSelectClickPrehrat);
+  });
+  kolekceCheckboxu.forEach((checkbox) => {
+    checkbox.removeEventListener("change", zvukCheckboxClickPrehrat);
+  });
+  kolekceButtonu.forEach((button) => {
+    button.removeEventListener("click", zvukButtonuClickPrehrat);
+  });
+};

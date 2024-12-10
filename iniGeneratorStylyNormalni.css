@@ -174,11 +174,7 @@ textarea:focus,
   max-height: 10rem;
   max-width: auto;
 }
-.levaCast,
-.pravaCast {
-  top: 0;
-  left: 0;
-}
+
 .znackaNodyDekoder,
 .inputNodyDekoder {
   text-align: center;

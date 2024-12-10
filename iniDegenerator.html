@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generator ini 2</title>
+     <!-- Lokalni počitač odkazy:-->
+      <!-- <link rel="stylesheet" id="stylyOdkaz" href="/iniGeneratorStylyNormalni.css" />  -->
+    <!-- GitHub odkazy: -->
+      <link rel="stylesheet" id="stylyOdkaz" href="iniGeneratorStylyNormalni.css" />
+      
+      <link href="https://fonts.googleapis.com/css2?family=Micro+5&family=Pixelify+Sans:wght@400..700&family=Tiny5&family=VT323&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  </head>
+  <body>
+     <!-- Lokalni počitač odkazy:-->
+    <!-- <audio  id="audioSoubor" src="/audio/DejaVu.mp4"></audio>
+    <audio id="zvukInputFocus" src="/audio/zvukInputFocus.wav"></audio>
+    <audio id="zvukInputChange" src="/audio/zvukInputChange.wav"></audio>
+    <audio id="zvukSelectClick" src="/audio/zvukSelectClick.mp3"></audio>
+    <audio id="zvukCheckboxClick" src="/audio/zvukCheckboxClick.mp3"></audio>
+    <audio id="zvukButtonClick" src="/audio/zvukButtonClick.wav"></audio> -->
+     <!-- GitHub odkazy: -->
+    <audio  id="audioSoubor" src="audio/DejaVu.mp4"></audio>
+    <audio id="zvukInputFocus" src="audio/zvukInputFocus.wav"></audio>
+    <audio id="zvukInputChange" src="audio/zvukInputChange.wav"></audio>
+    <audio id="zvukSelectClick" src="audio/zvukSelectClick.mp3"></audio>
+    <audio id="zvukCheckboxClick" src="audio/zvukCheckboxClick.mp3"></audio>
+    <audio id="zvukButtonClick" src="audio/zvukButtonClick.wav"></audio>
+    
+    <div class="titulniNadpisKontejner" >
+        <h2 id="titulniNadpis">Konfig ini 2</h2>
+    </div>
+    <div class="navbar">
+          <a href="/index.html">Generator</a>
+          <a href="/iniDegenerator.html">Degenerator</a>
+          <a href="#">Informace</a>
+          <label class="prepinacHudbyKontejner" for="prepinacHudby">&#9835 <input type="checkbox" id="prepinacHudby" class="prepinacHudby" checked/>
+          </label>
+          <select id="stylyVyber">
+            <option value="Normalni" /selected>Normlni</option>
+            <option value="Bitovka">Bitovka</option>
+          </select>
+          <label for="stylyVyber">Styl:</label>
+  </div>
+  <div>
+    <textarea id="vstupniHodnoty" rows="10" cols="100" placeholder="Vložte text ini souboru."></textarea>
+    <div>
+      <input type="button" id="tlacitkoDekodovat" class="tlacitko" value="Dekodovat">
+    </div>
+  </div>
+    <table class="tabulkaDekoder">
+      <tbody>
+        <tr>
+          <th scope="row">Čislo ZM:</th>
+          <td id="cisloZm"></td>
+        </tr>
+        <tr>
+          <th scope="row">Typ SW:</th>
+          <td id="typSw"></td>
+        </tr>
+        <tr>
+          <th scope="row">Časove pasmo:</th>
+          <td id="casovePasmo"></td>
+        </tr>
+        <tr>
+          <th scope="row">Typ hl. el-měru:</th>
+          <td id="typElektromeru"></td>
+        </tr>
+        <tr>
+          <th scope="row">Počet podružnych el-měru:</th>
+          <td id="pocetElektromeru"></td>
+        </tr>
+        <tr>
+          <th scope="row">Počet nodu:</th>
+          <td id="pocetNodu"></td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="tabulkaDekoder">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Skupina 1</th>
+        <th scope="col">Skupina 2</th>
+        <th scope="col">Skupina 3</th>
+        <th scope="col">Skupina 4</th>
+        <th scope="col">Skupina 5</th>
+        <th scope="col">Skupina 6</th>
+        <th scope="col">Skupina 7</th>
+        <th scope="col">Skupina 8</th>
+      </tr>
+      <tr>
+        <th>Funkce:</th>
+        <td id="funkceA-1"></td>
+        <td id="funkceA-2"></td>
+        <td id="funkceA-3"></td>
+        <td id="funkceA-4"></td>
+        <td id="funkceA-5"></td>
+        <td id="funkceA-6"></td>
+        <td id="funkceA-7"></td>
+        <td id="funkceA-8"></td>
+      </tr>
+      <tr>
+        <th>Čas:</th>
+        <td id="casA-1"></td>
+        <td id="casA-2"></td>
+        <td id="casA-3"></td>
+        <td id="casA-4"></td>
+        <td id="casA-5"></td>
+        <td id="casA-6"></td>
+        <td id="casA-7"></td>
+        <td id="casA-8"></td>
+      </tr>
+      <th>Funkce:</th>
+      <td id="funkceB-1"></td>
+      <td id="funkceB-2"></td>
+      <td id="funkceB-3"></td>
+      <td id="funkceB-4"></td>
+      <td id="funkceB-5"></td>
+      <td id="funkceB-6"></td>
+      <td id="funkceB-7"></td>
+      <td id="funkceB-8"></td>
+    </tr>
+    <tr>
+      <th>Čas:</th>
+      <td id="casB-1"></td>
+      <td id="casB-2"></td>
+      <td id="casB-3"></td>
+      <td id="casB-4"></td>
+      <td id="casB-5"></td>
+      <td id="casB-6"></td>
+      <td id="casB-7"></td>
+      <td id="casB-8"></td>
+    </tr>
+    <tr>
+    </table>
+  </div>
+  <div>
+    <table class="tabulkaDekoder">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Rele 1</th>
+        <th scope="col">Rele 2</th>
+        <th scope="col">Rele 3</th>
+        <th scope="col">Rele 4</th>
+        <th scope="col">Rele 5</th>
+        <th scope="col">Rele 6</th>
+        <th scope="col">Rele 7</th>
+        <th scope="col">Rele 8</th>
+      </tr>
+      <tr>
+        <th>Režim:</th>
+      <td id="releRezim-1" class="releRezim"></td>
+      <td id="releRezim-2" class="releRezim"></td>
+      <td id="releRezim-3" class="releRezim"></td>
+      <td id="releRezim-4" class="releRezim"></td>
+      <td id="releRezim-5" class="releRezim"></td>
+      <td id="releRezim-6" class="releRezim"></td>
+      <td id="releRezim-7" class="releRezim"></td>
+      <td id="releRezim-8" class="releRezim"></td>
+      </tr>
+      <tr>
+        <th>Ovlada skupina:</th>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      <td class="releSkupina"></td>
+      </tr>
+    </table>
+  </div>
+  <div class="stylJednaObrys nodyKontejnerDekoder">
+    <table id="prirazeniNodu"></table>
+  </div>
+  <div class="pozadi"></div>
+  <div class="budovy budovyClone"></div>
+  <div class="budovy"></div>
+  <div class="car"></div>
+  <div class="popredi"></div>
+</body>
+<script src="/iniDegeneratorSkripta.js"></script>
+</html>
