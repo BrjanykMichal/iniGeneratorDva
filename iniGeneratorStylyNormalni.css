@@ -16,7 +16,8 @@ body {
 }
 
 .znackaNody,
-.inputNody {
+.inputNody,
+.hodnotaNody {
   margin: 0;
   padding: 0.1rem;
   width: 2.5rem;
@@ -51,6 +52,7 @@ a {
   border: unset;
   transition: background-color 0.6s;
 }
+
 label {
   user-select: none;
 }
@@ -153,4 +155,39 @@ textarea:focus,
 }
 .releCheckbox {
   display: block;
+}
+/* Tady styly pro tabulku dekoderu: */
+
+.tabulkaDekoder th,
+.tabulkaDekoder td {
+  text-align: center;
+  padding: 0.2em 0.7em;
+  min-width: 5em;
+  border: 1px solid black;
+  border-radius: 0.3em;
+}
+.tabulkaDekoder th {
+  background: rgb(241, 249, 241);
+}
+.nodyKontejnerDekoder {
+  overflow: auto;
+  max-height: 10rem;
+  max-width: auto;
+}
+.levaCast,
+.pravaCast {
+  top: 0;
+  left: 0;
+}
+.znackaNodyDekoder,
+.inputNodyDekoder {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 0.1rem;
+  font-weight: bold;
+  border: 1px solid black;
+  background: rgb(241, 249, 241);
+}
+.inputNodyDekoder {
+  background: rgb(255, 255, 255);
 }
