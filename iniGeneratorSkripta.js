@@ -420,7 +420,7 @@ function sberDatZTabulkyNodu() {
     nodyBajtyPole = nodyBajtyPole.concat(Array(8).fill(i));
   }
 
-  let inputNody = document.querySelectorAll("td");
+  let inputNody = document.querySelectorAll(".inputNody");
   // Vytvoři pole kde budou čisla skupiny ke ktere nod patři,celkem 256 pozic s čišly od 0 do 8:
   let nodyValuePole = [];
   nodyValuePole = Array.from(inputNody).map((hodnota) => Number(hodnota.value));
@@ -530,24 +530,23 @@ function sberDatZTabulkyNodu() {
     vysledekPt += "PT" + nazevPt + "=" + hodnota[1] + "\n";
   }
 
-  console.log("nodyValuePole: " + nodyValuePole + " delka: " + nodyValuePole.length);
-  console.log(
-    "nodyValuePoleProVypocet: " + nodyValuePoleProVypocet + " delka: " + nodyValuePoleProVypocet.length
-  );
-  console.log("nody Bajty: " + nodyBajtyPole + "delka: " + nodyBajtyPole.length);
-  console.log("prvni Vypocet lpflags: " + prvniVypocetLpflags + "delka: " + prvniVypocetLpflags.length);
-  console.log("druhy Vypocet lpflags: " + druhyVypocetLpflags + " delka: " + druhyVypocetLpflags.length);
-  console.log("Nody Přitomnost: " + nodyPritomnost + " delka: " + nodyPritomnost.length);
-  console.log("Vysledek vysledekLpflags: " + vysledekLpflags + " delka: " + vysledekLpflags.length);
-  console.log("Hodnota PG: " + hodnotaPg + " delka: " + hodnotaPg.length);
-  console.log("Vysledek PG: " + "\n" + vysledekPg + " delka: " + vysledekPg.length);
-  console.log("Hodnota PT: " + hodnotaPt + " delka: " + hodnotaPt.length);
-  console.log("Vysledek PT " + "\n" + vysledekPt + " delka: " + vysledekPt.length);
-  console.log("nodyPtData: " + nodyPtData + " delka: " + nodyPtData.length);
+  // console.log("nodyValuePole: " + nodyValuePole + " delka: " + nodyValuePole.length);
+  // console.log(
+  //   "nodyValuePoleProVypocet: " + nodyValuePoleProVypocet + " delka: " + nodyValuePoleProVypocet.length
+  // );
+  // console.log("nody Bajty: " + nodyBajtyPole + "delka: " + nodyBajtyPole.length);
+  // console.log("prvni Vypocet lpflags: " + prvniVypocetLpflags + "delka: " + prvniVypocetLpflags.length);
+  // console.log("druhy Vypocet lpflags: " + druhyVypocetLpflags + " delka: " + druhyVypocetLpflags.length);
+  // console.log("Nody Přitomnost: " + nodyPritomnost + " delka: " + nodyPritomnost.length);
+  // console.log("Vysledek vysledekLpflags: " + vysledekLpflags + " delka: " + vysledekLpflags.length);
+  // console.log("Hodnota PG: " + hodnotaPg + " delka: " + hodnotaPg.length);
+  // console.log("Vysledek PG: " + "\n" + vysledekPg + " delka: " + vysledekPg.length);
+  // console.log("Hodnota PT: " + hodnotaPt + " delka: " + hodnotaPt.length);
+  // console.log("Vysledek PT " + "\n" + vysledekPt + " delka: " + vysledekPt.length);
+  // console.log("nodyPtData: " + nodyPtData + " delka: " + nodyPtData.length);
 
   return [vysledekLpflags, vysledekPg, vysledekPt];
 }
-
 //Skripta pro tlačitko Stahnout:
 function downloadIniFile() {
   let name = document.getElementById("cisloZm").value;
